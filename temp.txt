@@ -3,3 +3,4 @@ source .venv/bin/activate
 
 pip install --upgrade pip
 pip list
+git remote set-url origin git@github.com:KonuTech/steam-reviews-vectordb.git
