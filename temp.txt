@@ -1,6 +1,141 @@
 python3 -m venv .venv
 source .venv/bin/activate
 
+
 pip install --upgrade pip
 pip list
 git remote set-url origin git@github.com:KonuTech/steam-reviews-vectordb.git
+
+
+docker run -it \
+    --rm \
+    --name elasticsearch \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=false" \
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+
+
+
+
+docker run -d --name elasticsearch --network elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+
+
+
+docker run -d --name es-head -p 9100:9100 mobz/elasticsearch-head:5
+http://localhost:9100
+
+docker run -d --name cerebro -p 9000:9000 lmenezes/cerebro
+docker run -it \
+    --rm \
+    --name elasticsearch \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=false" \
+    -v $(pwd)/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+
+
+
+docker run -d --name elasticvue -p 8080:8080 cars10/elasticvue
+docker run -it \
+    --rm \
+    --name elasticsearch \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=false" \
+    -v $(pwd)/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+
+
+docker run -d --name opendistro-kibana --network elastic -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://localhost:9200" amazon/opendistro-for-elasticsearch-kibana:1.13.2
+
+
+
+
+docker run -it \
+    --rm \
+    --name elasticsearch \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=true" \
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+
+
+
+https://www.elastic.co/downloads/kibana
+https://www.elastic.co/guide/en/kibana/current/docker.html
+Kibana:
+http://localhost:5601/
+
+
+# Pull and Start the Elasticsearch Docker image.
+docker network create elastic
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+docker run --name es01 --net elastic -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+docker run -it \
+    --name es01 \
+    --net elastic \
+    -p 9200:9200 \
+    -m 1GB \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=true" \
+    docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+
+
+
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+LoNd6YrBX*wQjad*qyHo
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE5LjAuMjo5MjAwIl0sImZnciI6IjBjMjU1MjAyYmNkYTg3ZDg4MWZiMmMwNjExMjA0ZDIwMjVmODI5ZTUxYjAyZGY0ZjViMTkzMWIwOTJkZThhODEiLCJrZXkiOiJyM0pLMVpBQnZrTWFXc1ZKdVZFdDpfS1ZKWTBVYlI5bTkzTUI3VXFGWlBRIn0=
+
+
+# Pull and Start a Kibana container.
+docker pull docker.elastic.co/kibana/kibana:8.14.3
+docker run --name kib01 --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.14.3
+
+Go to http://0.0.0.0:5601/?code=922262 to get started.
+Your verification code is:  802 277
+
+
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE5LjAuMjo5MjAwIl0sImZnciI6IjRjZDJiOWQ5ZmY3NTQxMzM1MGZhMmUyN2I4N2NhYWVjNGQ4ZThiMGIzMmFmNjk5YTUzNzNlZGYzMGM4ODlmYWQiLCJrZXkiOiJtVTVvMVpBQm8wVzBROVBpeXpxVzpxT2Ywc2ZIMFFKaVJBMjZ1dDc1LW5nIn0=
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+New value: 6cx-YbhyZR*vwelWsm_2
+
+
+curl -X GET "localhost:9200/"
+
+docker exec -it 79114a12e28f curl -X GET "localhost:9200/"
+
+
+docker pull docker.elastic.co/kibana/kibana:8.14.3
+
+docker run --name kib01 --net elastic -p 5601:5601 \
+  -v $(pwd)/kibana.yml:/usr/share/kibana/config/kibana.yml \
+  docker.elastic.co/kibana/kibana:8.14.3
+
+
+
+
+
+
+
+
+docker run --name es01 --net elastic -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+docker run --name kib01 --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.14.3
+
+
+
+Go to http://0.0.0.0:5601/?code=509830 to get started.
+
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE5LjAuMjo5MjAwIl0sImZnciI6ImY3Yjk5ODExODc1MzgxOTg1ZWZjMDEzMDM3YjEyOTM1OTliZTFhZTE1ZjNlYzZmMGI5NGJjOGJhZTAxZGUwMmMiLCJrZXkiOiJWTS1JMVpBQjlWWjlYUWRGT1FFTjpzMjNIZ2NsSlJnaW44ZjVOSld3WlVRIn0
+
+
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+New value: SN=hlaZf0920yi7mgTou
